@@ -156,11 +156,6 @@ body {
     transform: scale(1.15);
 }
 
-.building-marker .marker-label {
-    opacity: 0;
-    animation: markerAppear 0.6s ease-out forwards;
-    animation-delay: var(--delay, 0s);
-}
 
 @keyframes markerAppear {
     0% {
