@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Voldeck | Geospatial Developer</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Desktop: Full map experience -->
+    <div id="desktop-view">
+        <div id="map"></div>
+        
+        <!-- Header overlay -->
+        <header id="header">
+            <h1>Mark Voldeck</h1>
+            <p class="subtitle">Geospatial Developer & Data Engineer</p>
+        </header>
+
+        <!-- Building markers with icons -->
+        <div id="markers-container"></div>
+
+        <!-- Sidebar panel -->
+        <aside id="sidebar" class="hidden">
+            <button id="sidebar-close" aria-label="Close sidebar">&times;</button>
+            <div id="sidebar-content">
+                <!-- Dynamic content loaded here -->
+            </div>
+        </aside>
+
+        <!-- Instructions hint -->
+        <div id="hint">
+            <span class="hint-icon">↑</span>
+            Click a glowing building to explore
+        </div>
+
+        <!-- Contact footer -->
+        <footer id="footer">
+            <a href="mailto:m.voldeck@gmail.com">m.voldeck@gmail.com</a>
+            <span class="separator">•</span>
+            <a href="https://linkedin.com/in/mark-voldeck-30b30164" target="_blank">LinkedIn</a>
+            <span class="separator">•</span>
+            <span>Mason, Michigan</span>
+        </footer>
+    </div>
+
+    <!-- Mobile: Simplified fallback -->
+    <div id="mobile-view">
+        <div class="mobile-container">
+            <header class="mobile-header">
+                <h1>Mark Voldeck</h1>
+                <p class="subtitle">Geospatial Developer & Data Engineer</p>
+            </header>
+
+            <div class="mobile-note">
+                <p>🗺️ This site features an interactive 3D map experience best viewed on desktop.</p>
+            </div>
+
+            <section class="mobile-section">
+                <h2>What I Believe</h2>
+                <p>15+ years building geospatial intelligence platforms for federal agencies, research institutions, finance, real estate, politics, and community benefit.</p>
+                <p>I am interested in building technology that empowers people, not surveils or exploits them—tools for transparency, equity, and democratic participation in civic life.</p>
+                <p>I believe in collective ownership, worker autonomy, and creating community wealth rather than extracting it.</p>
+            </section>
+
+            <section class="mobile-section">
+                <h2>What I've Built</h2>
+                <div class="mobile-project">
+                    <h3>RegionPulse Intelligence Platform</h3>
+                    <p>AI-powered geospatial platform with XGBoost ML, SHAP explainability, and NLP for neighborhood-level analysis across Michigan.</p>
+                    <a href="#" class="demo-link">View Demo →</a>
+                </div>
+                <div class="mobile-project">
+                    <h3>Statewide Housing Placement System</h3>
+                    <p>Web application helping case workers house mentally ill and developmentally disabled individuals across Michigan.</p>
+                </div>
+                <div class="mobile-project">
+                    <h3>Federal Research Systems</h3>
+                    <p>Geospatial analysis tools for USDA, US Coast Guard, and Army Corps of Engineers.</p>
+                </div>
+            </section>
+
+            <section class="mobile-section">
+                <h2>Who I Want to Work With</h2>
+                <p><strong>Organizations where mission matters more than margin.</strong></p>
+                <p>Environmental justice, housing equity, civic technology, progressive political campaigns, worker cooperatives, democratic workplaces.</p>
+                <p>Workers with voice in decisions. Expertise valued over credentials.</p>
+                <p class="not-interested">Not interested in surveillance, advertising, extraction, or corporate theater.</p>
+            </section>
+
+            <footer class="mobile-footer">
+                <a href="mailto:m.voldeck@gmail.com">m.voldeck@gmail.com</a>
+                <a href="https://linkedin.com/in/mark-voldeck-30b30164" target="_blank">LinkedIn</a>
+                <span>Mason, Michigan • 734.812.7399</span>
+            </footer>
+        </div>
+    </div>
+
+    <script src="buildings.js"></script>
+    <script src="content.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
