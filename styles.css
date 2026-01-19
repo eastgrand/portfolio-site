@@ -143,7 +143,13 @@ body {
 ======================================== */
 .building-marker {
     cursor: pointer;
-    transition: transform var(--transition-smooth);
+}
+
+.building-marker:hover .marker-icon {
+    transform: scale(1.15);
+}
+
+.building-marker .marker-label {
     opacity: 0;
     animation: markerAppear 0.6s ease-out forwards;
     animation-delay: var(--delay, 0s);
@@ -163,10 +169,6 @@ body {
     }
 }
 
-.building-marker:hover {
-    transform: scale(1.1);
-}
-
 .marker-icon {
     width: 48px;
     height: 48px;
@@ -177,15 +179,18 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    box-shadow: 
+    box-shadow:
         0 0 20px var(--color-accent-glow),
         0 0 40px var(--color-accent-glow);
-    animation: pulse 3s ease-in-out infinite;
+    animation: markerAppear 0.6s ease-out forwards,
+               pulse 3s ease-in-out 0.6s infinite;
+    animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
+    transition: transform 0.3s ease;
 }
 
 .marker-icon.active {
     background: var(--color-accent);
-    animation: none;
+    animation: markerAppear 0.6s ease-out forwards;
 }
 
 .marker-label {
@@ -226,12 +231,14 @@ body {
     box-shadow:
         0 0 20px rgba(16, 185, 129, 0.6),
         0 0 40px rgba(16, 185, 129, 0.6);
-    animation: pulse-contact 3s ease-in-out infinite;
+    animation: markerAppear 0.6s ease-out forwards,
+               pulse-contact 3s ease-in-out 0.6s infinite;
+    animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
 }
 
 .marker-icon.contact.active {
     background: #10b981;
-    animation: none;
+    animation: markerAppear 0.6s ease-out forwards;
 }
 
 @keyframes pulse-contact {
