@@ -87,7 +87,7 @@ const INITIAL_VIEW = {
     center: [-84.5545, 42.7310],
     zoom: 16.5,
     pitch: 70,
-    bearing: -15
+    bearing: Math.random() * 360 - 180  // Random bearing between -180 and 180
 };
 
 const CONTENT = {
