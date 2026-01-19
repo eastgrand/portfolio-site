@@ -85,7 +85,7 @@ const BUILDINGS = generateBuildings();
 
 const INITIAL_VIEW = {
     center: [-84.5545, 42.7310],
-    zoom: 15.5,
+    zoom: 16.5,
     pitch: 70,
     bearing: -15
 };
