@@ -14,57 +14,73 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmVnaW9ucHVsc2UiLCJhIjoiY21kMGFjNThnMDEyNzJrb
 // Building & Content Data (inline for simplicity)
 // ============================================
 
-const BUILDINGS = {
+// Base marker config (coordinates generated randomly on load)
+const MARKER_CONFIG = {
     capitol: {
         id: 'capitol',
         name: 'What I Believe',
-        coordinates: [-84.5580, 42.7345],
-        icon: '⚖️',
-        camera: {
-            center: [-84.5580, 42.7330],
-            zoom: 16.5,
-            pitch: 72,
-            bearing: -30
-        }
-    },
-    fledge: {
-        id: 'fledge',
-        name: 'Who I Want to Work With',
-        coordinates: [-84.5510, 42.7290],
-        icon: '🤝',
-        camera: {
-            center: [-84.5510, 42.7275],
-            zoom: 16.5,
-            pitch: 72,
-            bearing: 45
-        }
+        icon: '⚖️'
     },
     stadium: {
         id: 'stadium',
         name: "What I've Built",
-        coordinates: [-84.5545, 42.7315],
-        icon: '🔧',
-        camera: {
-            center: [-84.5545, 42.7300],
-            zoom: 16.5,
-            pitch: 72,
-            bearing: 15
-        }
+        icon: '🔧'
+    },
+    fledge: {
+        id: 'fledge',
+        name: 'Who I Want to Work With',
+        icon: '🤝'
     },
     contact: {
         id: 'contact',
         name: 'Get In Touch',
-        coordinates: [-84.5490, 42.7340],
         icon: '✉️',
-        glowColor: 'contact',
-        camera: {
-            center: [-84.5490, 42.7325],
-            zoom: 16.5,
-            pitch: 72,
-            bearing: -45
-        }
+        glowColor: 'contact'
     }
 };
+
+// Map bounds for random marker placement (downtown Lansing area)
+const MAP_BOUNDS = {
+    lng: { min: -84.5620, max: -84.5480 },
+    lat: { min: 42.7280, max: 42.7360 }
+};
+
+// Generate random coordinates within bounds
+function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function generateRandomCoordinates() {
+    return [
+        randomInRange(MAP_BOUNDS.lng.min, MAP_BOUNDS.lng.max),
+        randomInRange(MAP_BOUNDS.lat.min, MAP_BOUNDS.lat.max)
+    ];
+}
+
+// Generate buildings with random positions
+function generateBuildings() {
+    const buildings = {};
+    const bearings = [-45, -15, 15, 45]; // Different bearings for variety
+    let i = 0;
+
+    for (const [key, config] of Object.entries(MARKER_CONFIG)) {
+        const coords = generateRandomCoordinates();
+        buildings[key] = {
+            ...config,
+            coordinates: coords,
+            camera: {
+                center: [coords[0], coords[1] - 0.001], // Slightly south for better view
+                zoom: 16.5,
+                pitch: 72,
+                bearing: bearings[i % bearings.length]
+            }
+        };
+        i++;
+    }
+    return buildings;
+}
+
+const BUILDINGS = generateBuildings();
 
 const INITIAL_VIEW = {
     center: [-84.5545, 42.7310],
@@ -419,12 +435,19 @@ function selectBuilding(buildingId) {
 function showSidebar(buildingId) {
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('sidebar-content');
-    
+
     // Update content
     content.innerHTML = CONTENT[buildingId].html;
-    
+
     // Show sidebar
     sidebar.classList.remove('hidden');
+
+    // Animate content elements with staggered delays
+    const animateElements = content.querySelectorAll('.sidebar-header, .sidebar-section, .project-card, .skill-bar, .org-type, .form-group, .submit-btn');
+    animateElements.forEach((el, index) => {
+        el.classList.add('animate-in');
+        el.style.animationDelay = `${index * 0.08}s`;
+    });
     
     // Animate skill bars if showing "What I've Built"
     if (buildingId === 'stadium') {

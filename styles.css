@@ -144,6 +144,27 @@ body {
 .building-marker {
     cursor: pointer;
     transition: transform var(--transition-smooth);
+    opacity: 0;
+    animation: markerAppear 0.6s ease-out forwards;
+}
+
+.building-marker:nth-child(1) { animation-delay: 0.3s; }
+.building-marker:nth-child(2) { animation-delay: 0.5s; }
+.building-marker:nth-child(3) { animation-delay: 0.7s; }
+.building-marker:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes markerAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0) translateY(20px);
+    }
+    50% {
+        transform: scale(1.2) translateY(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .building-marker:hover {
@@ -244,13 +265,30 @@ body {
     border-left: 1px solid var(--color-border);
     z-index: 100;
     transform: translateX(0);
-    transition: transform var(--transition-smooth);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease-out;
     overflow-y: auto;
     backdrop-filter: blur(20px);
+    opacity: 1;
 }
 
 #sidebar.hidden {
     transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Sidebar content animations */
+.animate-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #sidebar-close {
