@@ -40,9 +40,10 @@ const MARKER_CONFIG = {
 };
 
 // Map bounds for random marker placement (downtown Lansing area)
+// Avoiding top-left quadrant where header is displayed
 const MAP_BOUNDS = {
-    lng: { min: -84.5620, max: -84.5480 },
-    lat: { min: 42.7280, max: 42.7360 }
+    lng: { min: -84.5580, max: -84.5470 },  // Shifted right to avoid header
+    lat: { min: 42.7270, max: 42.7340 }     // Lowered top bound
 };
 
 // Generate random coordinates within bounds
@@ -379,10 +380,14 @@ function add3DBuildings() {
 // Add Markers
 // ============================================
 function addMarkers() {
+    const delays = [0.3, 0.5, 0.7, 0.9];
+    let i = 0;
+
     Object.entries(BUILDINGS).forEach(([key, building]) => {
         // Create marker element
         const el = document.createElement('div');
         el.className = 'building-marker';
+        el.style.setProperty('--delay', `${delays[i]}s`);
         const glowClass = building.glowColor ? ` ${building.glowColor}` : '';
         el.innerHTML = `
             <div class="marker-icon${glowClass}">${building.icon}</div>
@@ -398,6 +403,7 @@ function addMarkers() {
             .addTo(map);
 
         markers[key] = { marker, element: el };
+        i++;
     });
 }
 
