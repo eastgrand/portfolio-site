@@ -351,6 +351,10 @@ const CONTENT = {
 let map;
 let markers = {};
 let activeBuilding = null;
+let isRotating = true;
+let idleTimeout = null;
+const ROTATION_SPEED = 0.15; // Degrees per frame
+const IDLE_DELAY = 3000; // Resume rotation after 3s of inactivity
 
 // ============================================
 // Initialize Map
@@ -383,7 +387,38 @@ function initMap() {
         setTimeout(() => {
             document.getElementById('map').classList.add('loaded');
         }, 100);
+
+        // Start ambient rotation
+        startRotation();
+
+        // Pause rotation on user interaction
+        map.on('mousedown', pauseRotation);
+        map.on('touchstart', pauseRotation);
+        map.on('wheel', pauseRotation);
     });
+}
+
+// ============================================
+// Ambient Rotation
+// ============================================
+function startRotation() {
+    function rotate() {
+        if (isRotating && !activeBuilding) {
+            map.rotateTo(map.getBearing() + ROTATION_SPEED, { duration: 0 });
+        }
+        requestAnimationFrame(rotate);
+    }
+    rotate();
+}
+
+function pauseRotation() {
+    isRotating = false;
+    clearTimeout(idleTimeout);
+    idleTimeout = setTimeout(() => {
+        if (!activeBuilding) {
+            isRotating = true;
+        }
+    }, IDLE_DELAY);
 }
 
 // ============================================
@@ -573,19 +608,24 @@ async function handleContactSubmit(e) {
 function hideSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.add('hidden');
-    
+
     // Remove active state from marker
     if (activeBuilding) {
         markers[activeBuilding].element.querySelector('.marker-icon').classList.remove('active');
         activeBuilding = null;
     }
-    
+
     // Return to initial view
     map.flyTo({
         ...INITIAL_VIEW,
         duration: 1500,
         essential: true
     });
+
+    // Resume rotation after fly animation
+    setTimeout(() => {
+        isRotating = true;
+    }, 1600);
 }
 
 // ============================================
