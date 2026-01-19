@@ -328,7 +328,7 @@ let activeBuilding = null;
 function initMap() {
     map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v11',
+        style: 'mapbox://styles/mapbox/navigation-night-v1',
         center: INITIAL_VIEW.center,
         zoom: INITIAL_VIEW.zoom,
         pitch: INITIAL_VIEW.pitch,
@@ -337,14 +337,45 @@ function initMap() {
     });
 
     map.on('load', () => {
-        // Add 3D buildings layer
+        // Remove all labels for cleaner look
+        removeLabels();
+
+        // Add fog/atmosphere for depth
+        addFog();
+
+        // Add 3D buildings layer with custom glow
         add3DBuildings();
-        
+
         // Add building markers
         addMarkers();
-        
+
         // Add navigation controls
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+    });
+}
+
+// ============================================
+// Remove Labels
+// ============================================
+function removeLabels() {
+    const layers = map.getStyle().layers;
+    layers.forEach(layer => {
+        if (layer.type === 'symbol') {
+            map.setLayoutProperty(layer.id, 'visibility', 'none');
+        }
+    });
+}
+
+// ============================================
+// Add Fog/Atmosphere
+// ============================================
+function addFog() {
+    map.setFog({
+        'color': 'rgb(10, 10, 20)',
+        'high-color': 'rgb(30, 30, 50)',
+        'horizon-blend': 0.1,
+        'space-color': 'rgb(5, 5, 15)',
+        'star-intensity': 0.3
     });
 }
 
@@ -366,10 +397,21 @@ function add3DBuildings() {
             type: 'fill-extrusion',
             minzoom: 14,
             paint: {
-                'fill-extrusion-color': '#1a1a2e',
+                // Gradient from dark base to lighter top for glow effect
+                'fill-extrusion-color': [
+                    'interpolate',
+                    ['linear'],
+                    ['get', 'height'],
+                    0, '#12121f',
+                    50, '#1e1e3a',
+                    100, '#2a2a4a'
+                ],
                 'fill-extrusion-height': ['get', 'height'],
                 'fill-extrusion-base': ['get', 'min_height'],
-                'fill-extrusion-opacity': 0.85
+                'fill-extrusion-opacity': 0.9,
+                // Ambient occlusion for depth
+                'fill-extrusion-ambient-occlusion-intensity': 0.3,
+                'fill-extrusion-ambient-occlusion-radius': 3
             }
         },
         labelLayerId
