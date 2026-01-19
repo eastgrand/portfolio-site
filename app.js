@@ -19,23 +19,26 @@ const MARKER_CONFIG = {
     capitol: {
         id: 'capitol',
         name: 'What I Believe',
-        icon: '⚖️'
+        icon: '⚖️',
+        glowColor: 'purple'
     },
     stadium: {
         id: 'stadium',
         name: "What I've Built",
-        icon: '🔧'
+        icon: '🔧',
+        glowColor: 'blue'
     },
     fledge: {
         id: 'fledge',
         name: 'Who I Want to Work With',
-        icon: '🤝'
+        icon: '🤝',
+        glowColor: 'amber'
     },
     contact: {
         id: 'contact',
         name: 'Get In Touch',
         icon: '✉️',
-        glowColor: 'contact'
+        glowColor: 'green'
     }
 };
 

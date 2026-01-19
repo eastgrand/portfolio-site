@@ -227,34 +227,72 @@ body {
     }
 }
 
-/* Contact marker - different glow color */
-.marker-icon.contact {
+/* Purple glow - What I Believe */
+.marker-icon.purple {
+    border-color: #a855f7;
+    box-shadow:
+        0 0 20px rgba(168, 85, 247, 0.6),
+        0 0 40px rgba(168, 85, 247, 0.6);
+    animation: markerAppear 0.6s ease-out forwards,
+               pulse-purple 3s ease-in-out 0.6s infinite;
+    animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
+}
+.marker-icon.purple.active { background: #a855f7; animation: markerAppear 0.6s ease-out forwards; }
+
+@keyframes pulse-purple {
+    0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.6); }
+    50% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(168, 85, 247, 0.6), 0 0 80px rgba(168, 85, 247, 0.6); }
+}
+
+/* Blue glow - What I've Built */
+.marker-icon.blue {
+    border-color: #3b82f6;
+    box-shadow:
+        0 0 20px rgba(59, 130, 246, 0.6),
+        0 0 40px rgba(59, 130, 246, 0.6);
+    animation: markerAppear 0.6s ease-out forwards,
+               pulse-blue 3s ease-in-out 0.6s infinite;
+    animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
+}
+.marker-icon.blue.active { background: #3b82f6; animation: markerAppear 0.6s ease-out forwards; }
+
+@keyframes pulse-blue {
+    0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.6); }
+    50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.6), 0 0 80px rgba(59, 130, 246, 0.6); }
+}
+
+/* Amber glow - Who I Want to Work With */
+.marker-icon.amber {
+    border-color: #f59e0b;
+    box-shadow:
+        0 0 20px rgba(245, 158, 11, 0.6),
+        0 0 40px rgba(245, 158, 11, 0.6);
+    animation: markerAppear 0.6s ease-out forwards,
+               pulse-amber 3s ease-in-out 0.6s infinite;
+    animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
+}
+.marker-icon.amber.active { background: #f59e0b; animation: markerAppear 0.6s ease-out forwards; }
+
+@keyframes pulse-amber {
+    0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.6), 0 0 40px rgba(245, 158, 11, 0.6); }
+    50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), 0 0 60px rgba(245, 158, 11, 0.6), 0 0 80px rgba(245, 158, 11, 0.6); }
+}
+
+/* Green glow - Contact */
+.marker-icon.green {
     border-color: #10b981;
     box-shadow:
         0 0 20px rgba(16, 185, 129, 0.6),
         0 0 40px rgba(16, 185, 129, 0.6);
     animation: markerAppear 0.6s ease-out forwards,
-               pulse-contact 3s ease-in-out 0.6s infinite;
+               pulse-green 3s ease-in-out 0.6s infinite;
     animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
 }
+.marker-icon.green.active { background: #10b981; animation: markerAppear 0.6s ease-out forwards; }
 
-.marker-icon.contact.active {
-    background: #10b981;
-    animation: markerAppear 0.6s ease-out forwards;
-}
-
-@keyframes pulse-contact {
-    0%, 100% {
-        box-shadow:
-            0 0 20px rgba(16, 185, 129, 0.6),
-            0 0 40px rgba(16, 185, 129, 0.6);
-    }
-    50% {
-        box-shadow:
-            0 0 30px rgba(16, 185, 129, 0.6),
-            0 0 60px rgba(16, 185, 129, 0.6),
-            0 0 80px rgba(16, 185, 129, 0.6);
-    }
+@keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6), 0 0 40px rgba(16, 185, 129, 0.6); }
+    50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6), 0 0 60px rgba(16, 185, 129, 0.6), 0 0 80px rgba(16, 185, 129, 0.6); }
 }
 
 /* ========================================
