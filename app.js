@@ -61,19 +61,47 @@ function generateRandomCoordinates() {
     ];
 }
 
-// Generate buildings with random positions
+// Check if two coordinates are too close
+const MIN_DISTANCE = 0.0012; // Minimum distance between markers (approx 100m)
+
+function isTooClose(coord, existingCoords) {
+    for (const existing of existingCoords) {
+        const dx = coord[0] - existing[0];
+        const dy = coord[1] - existing[1];
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < MIN_DISTANCE) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function generateNonOverlappingCoordinates(existingCoords) {
+    let attempts = 0;
+    let coords;
+    do {
+        coords = generateRandomCoordinates();
+        attempts++;
+    } while (isTooClose(coords, existingCoords) && attempts < 100);
+    return coords;
+}
+
+// Generate buildings with random non-overlapping positions
 function generateBuildings() {
     const buildings = {};
-    const bearings = [-45, -15, 15, 45]; // Different bearings for variety
+    const bearings = [-45, -15, 15, 45];
+    const placedCoords = [];
     let i = 0;
 
     for (const [key, config] of Object.entries(MARKER_CONFIG)) {
-        const coords = generateRandomCoordinates();
+        const coords = generateNonOverlappingCoordinates(placedCoords);
+        placedCoords.push(coords);
+
         buildings[key] = {
             ...config,
             coordinates: coords,
             camera: {
-                center: [coords[0], coords[1] - 0.001], // Slightly south for better view
+                center: [coords[0], coords[1] - 0.001],
                 zoom: 16.5,
                 pitch: 72,
                 bearing: bearings[i % bearings.length]
