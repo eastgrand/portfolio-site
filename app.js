@@ -348,6 +348,11 @@ function initMap() {
 
         // Add navigation controls
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+        // Reveal map after style is configured
+        setTimeout(() => {
+            document.getElementById('map').classList.add('loaded');
+        }, 100);
     });
 }
 
