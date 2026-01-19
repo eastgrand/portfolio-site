@@ -18,56 +18,54 @@ const BUILDINGS = {
     capitol: {
         id: 'capitol',
         name: 'What I Believe',
-        coordinates: [-84.5553, 42.7336],
+        coordinates: [-84.5580, 42.7345],
         icon: '🏛️',
         camera: {
-            center: [-84.5553, 42.7325],
-            zoom: 17,
-            pitch: 60,
-            bearing: -20
+            center: [-84.5580, 42.7330],
+            zoom: 16.5,
+            pitch: 72,
+            bearing: -30
         }
     },
     fledge: {
         id: 'fledge',
         name: 'Who I Want to Work With',
-        coordinates: [-84.5605, 42.7270],
+        coordinates: [-84.5510, 42.7290],
         icon: '🤝',
         camera: {
-            center: [-84.5605, 42.7260],
-            zoom: 17.5,
-            pitch: 55,
-            bearing: 30
+            center: [-84.5510, 42.7275],
+            zoom: 16.5,
+            pitch: 72,
+            bearing: 45
         }
     },
     stadium: {
         id: 'stadium',
         name: "What I've Built",
-        coordinates: [-84.5522, 42.7330],
+        coordinates: [-84.5545, 42.7315],
         icon: '🔧',
         camera: {
-            center: [-84.5522, 42.7320],
+            center: [-84.5545, 42.7300],
             zoom: 16.5,
-            pitch: 60,
-            bearing: 45
+            pitch: 72,
+            bearing: 15
         }
     }
 };
 
 const INITIAL_VIEW = {
-    center: [-84.5555, 42.7305],
-    zoom: 15,
-    pitch: 50,
-    bearing: -10
+    center: [-84.5545, 42.7310],
+    zoom: 15.5,
+    pitch: 70,
+    bearing: -15
 };
 
 const CONTENT = {
     capitol: {
         title: 'What I Believe',
-        location: 'Michigan State Capitol',
         html: `
             <div class="sidebar-header">
                 <h2>What I Believe</h2>
-                <div class="location">🏛️ Michigan State Capitol</div>
             </div>
             
             <div class="sidebar-section">
@@ -105,11 +103,10 @@ const CONTENT = {
     
     stadium: {
         title: "What I've Built",
-        location: 'Downtown Lansing',
         html: `
             <div class="sidebar-header">
                 <h2>What I've Built</h2>
-                <div class="location">🔧 15+ Years of Production Systems</div>
+                <div class="location">15+ Years of Production Systems</div>
             </div>
             
             <div class="sidebar-section">
@@ -190,11 +187,9 @@ const CONTENT = {
     
     fledge: {
         title: 'Who I Want to Work With',
-        location: 'The Fledge',
         html: `
             <div class="sidebar-header">
                 <h2>Who I Want to Work With</h2>
-                <div class="location">🤝 The Fledge, Lansing</div>
             </div>
             
             <div class="sidebar-section">
@@ -230,12 +225,6 @@ const CONTENT = {
                         <div class="name">Democratic Workplaces</div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="sidebar-section">
-                <h3>About The Fledge</h3>
-                <p>This marker sits on The Fledge—a Lansing makerspace and incubator focused on social enterprises and cooperative development. It represents the kind of organization I want to build with.</p>
-                <a href="https://thefledge.com" target="_blank" class="demo-link">Learn about The Fledge →</a>
             </div>
             
             <div class="sidebar-section">
