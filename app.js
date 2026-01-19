@@ -8,7 +8,7 @@
 // ============================================
 // CONFIGURATION - UPDATE THIS
 // ============================================
-mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
+mapboxgl.accessToken = 'pk.eyJ1IjoicmVnaW9ucHVsc2UiLCJhIjoiY21kMGFjNThnMDEyNzJrb2hibTZ3YWhhZyJ9.RDMe4N-clK6FZ1EVODbpng';
 
 // ============================================
 // Building & Content Data (inline for simplicity)
