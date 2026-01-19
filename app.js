@@ -353,8 +353,8 @@ let markers = {};
 let activeBuilding = null;
 let isRotating = true;
 let idleTimeout = null;
-const ROTATION_SPEED = 0.15; // Degrees per frame
-const IDLE_DELAY = 3000; // Resume rotation after 3s of inactivity
+const ROTATION_SPEED = 0.01; // Degrees per frame (very slow)
+const IDLE_DELAY = 5000; // Resume rotation after 5s of inactivity
 
 // ============================================
 // Initialize Map
@@ -391,10 +391,13 @@ function initMap() {
         // Start ambient rotation
         startRotation();
 
-        // Pause rotation on user interaction
-        map.on('mousedown', pauseRotation);
-        map.on('touchstart', pauseRotation);
-        map.on('wheel', pauseRotation);
+        // Pause rotation on any user interaction
+        ['mousedown', 'mousemove', 'touchstart', 'touchmove', 'wheel', 'dragstart'].forEach(event => {
+            map.on(event, pauseRotation);
+        });
+
+        // Also pause when mouse enters the map
+        document.getElementById('map').addEventListener('mouseenter', pauseRotation);
     });
 }
 
