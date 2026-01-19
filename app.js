@@ -19,7 +19,7 @@ const BUILDINGS = {
         id: 'capitol',
         name: 'What I Believe',
         coordinates: [-84.5580, 42.7345],
-        icon: '🏛️',
+        icon: '⚖️',
         camera: {
             center: [-84.5580, 42.7330],
             zoom: 16.5,
