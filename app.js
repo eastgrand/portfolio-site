@@ -40,10 +40,10 @@ const MARKER_CONFIG = {
 };
 
 // Map bounds for random marker placement (downtown Lansing area)
-// Avoiding top-left quadrant where header is displayed
+// Tightened for zoom 16.5, avoiding top-left header area
 const MAP_BOUNDS = {
-    lng: { min: -84.5580, max: -84.5470 },  // Shifted right to avoid header
-    lat: { min: 42.7270, max: 42.7340 }     // Lowered top bound
+    lng: { min: -84.5565, max: -84.5500 },
+    lat: { min: 42.7290, max: 42.7325 }
 };
 
 // Generate random coordinates within bounds
