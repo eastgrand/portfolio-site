@@ -328,7 +328,7 @@ let activeBuilding = null;
 function initMap() {
     map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/navigation-night-v1',
+        style: 'mapbox://styles/mapbox/standard',
         center: INITIAL_VIEW.center,
         zoom: INITIAL_VIEW.zoom,
         pitch: INITIAL_VIEW.pitch,
@@ -337,14 +337,11 @@ function initMap() {
     });
 
     map.on('load', () => {
-        // Remove all labels for cleaner look
-        removeLabels();
+        // Configure standard style
+        configureStandardStyle();
 
         // Add fog/atmosphere for depth
         addFog();
-
-        // Add 3D buildings layer with custom glow
-        add3DBuildings();
 
         // Add building markers
         addMarkers();
@@ -355,15 +352,17 @@ function initMap() {
 }
 
 // ============================================
-// Remove Labels
+// Configure Standard Style
 // ============================================
-function removeLabels() {
-    const layers = map.getStyle().layers;
-    layers.forEach(layer => {
-        if (layer.type === 'symbol') {
-            map.setLayoutProperty(layer.id, 'visibility', 'none');
-        }
-    });
+function configureStandardStyle() {
+    // Set night lighting for dark atmosphere
+    map.setConfigProperty('basemap', 'lightPreset', 'night');
+
+    // Hide labels for cleaner look
+    map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+    map.setConfigProperty('basemap', 'showTransitLabels', false);
+    map.setConfigProperty('basemap', 'showPlaceLabels', false);
+    map.setConfigProperty('basemap', 'showRoadLabels', false);
 }
 
 // ============================================
