@@ -50,6 +50,19 @@ const BUILDINGS = {
             pitch: 72,
             bearing: 15
         }
+    },
+    contact: {
+        id: 'contact',
+        name: 'Get In Touch',
+        coordinates: [-84.5490, 42.7340],
+        icon: '✉️',
+        glowColor: 'contact',
+        camera: {
+            center: [-84.5490, 42.7325],
+            zoom: 16.5,
+            pitch: 72,
+            bearing: -45
+        }
     }
 };
 
@@ -238,6 +251,50 @@ const CONTENT = {
                 </div>
             </div>
         `
+    },
+
+    contact: {
+        title: 'Get In Touch',
+        html: `
+            <div class="sidebar-header">
+                <h2>Get In Touch</h2>
+            </div>
+
+            <div class="sidebar-section">
+                <p>Interested in working together? Send me a message.</p>
+            </div>
+
+            <div class="sidebar-section">
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div id="form-success" class="form-success hidden">
+                    Thanks! I'll get back to you soon.
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Or Reach Out Directly</h3>
+                <div style="margin-top: 12px;">
+                    <a href="mailto:m.voldeck@gmail.com" class="demo-link">m.voldeck@gmail.com →</a>
+                </div>
+                <div style="margin-top: 8px;">
+                    <a href="https://linkedin.com/in/mark-voldeck-30b30164" target="_blank" class="demo-link">LinkedIn →</a>
+                </div>
+            </div>
+        `
     }
 };
 
@@ -310,19 +367,20 @@ function addMarkers() {
         // Create marker element
         const el = document.createElement('div');
         el.className = 'building-marker';
+        const glowClass = building.glowColor ? ` ${building.glowColor}` : '';
         el.innerHTML = `
-            <div class="marker-icon">${building.icon}</div>
+            <div class="marker-icon${glowClass}">${building.icon}</div>
             <div class="marker-label">${building.name}</div>
         `;
-        
+
         // Add click handler
         el.addEventListener('click', () => selectBuilding(key));
-        
+
         // Create and add marker
         const marker = new mapboxgl.Marker(el)
             .setLngLat(building.coordinates)
             .addTo(map);
-        
+
         markers[key] = { marker, element: el };
     });
 }
@@ -380,6 +438,33 @@ function showSidebar(buildingId) {
             });
         }, 300);
     }
+
+    // Attach contact form handler
+    if (buildingId === 'contact') {
+        const form = document.getElementById('contact-form');
+        if (form) {
+            form.addEventListener('submit', handleContactSubmit);
+        }
+    }
+}
+
+// ============================================
+// Contact Form Handler
+// ============================================
+async function handleContactSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    // For now, open mailto with form data (no backend)
+    const subject = encodeURIComponent('Portfolio Contact Form');
+    const body = encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`);
+    window.location.href = `mailto:m.voldeck@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show success message
+    form.classList.add('hidden');
+    document.getElementById('form-success').classList.remove('hidden');
 }
 
 function hideSidebar() {
